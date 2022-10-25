@@ -13,7 +13,7 @@ app.set("views", process.cwd() + "/src/views");
 app.use(logger);
 
 app.use("/", globalRouter);
-app.use("/video", videoRouter);
+app.use("/videos", videoRouter);
 app.use("/user", userRouter);
 
 const handleListening = () =>
