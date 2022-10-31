@@ -1,4 +1,6 @@
 extends base.pug
 
 block content
-    h1 boom
+    form(method="POST")
+        input(placeholder="Title", required, type="text", name="title")
+        input(type="submit", value="Upload Video")

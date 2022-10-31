@@ -32,12 +32,12 @@ export const handleHome = (req, res) => {
 export const watch = (req, res) => {
   const id = req.params.id;
   const video = videos[id - 1];
-  return res.render("watch", { pageTitle: `Watching ${video.title}`, video });
+  return res.render("watch", { pageTitle: `Watching "${video.title}"`, video });
 };
 export const getEdit = (req, res) => {
   const id = req.params.id;
   const video = videos[id - 1];
-  return res.render("edit", { pageTitle: `Editing ${video.title}`, video });
+  return res.render("edit", { pageTitle: `Editing "${video.title}"`, video });
 };
 export const postEdit = (req, res) => {
   const id = req.params.id;
@@ -47,8 +47,18 @@ export const postEdit = (req, res) => {
 };
 
 export const getUpload = (req, res) => {
-  // return res.render("upload");
+  return res.render("upload", { pageTitle: "Upload videos" });
 };
 export const postUpload = (req, res) => {
+  const { title } = req.body;
+  const newVideo = {
+    title,
+    rating: 0,
+    comments: 0,
+    createdAt: "Just now",
+    views: 0,
+    id: videos.length + 1,
+  };
+  videos.push(newVideo);
   return res.redirect("/");
 };
