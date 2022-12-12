@@ -1,5 +1,6 @@
 import User from "../models/User";
 import bcrypt from "bcrypt";
+import { request } from "express";
 
 export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
@@ -27,6 +28,7 @@ export const postJoin = async (req, res) => {
   });
   res.redirect("/login");
 };
+
 export const getLogin = (req, res) => {
   return res.render("login", { pageTitle: "Log-in" });
 };
@@ -38,7 +40,7 @@ export const postLogin = async (req, res) => {
   if (!user) {
     return res.status(400).render("login", {
       pageTitle,
-      errorMessage: "There is no same username that you submit.",
+      errorMessage: "An account with this username does not exists.",
     });
   }
 
@@ -49,7 +51,9 @@ export const postLogin = async (req, res) => {
       errorMessage: "Wrong password",
     });
   }
-  res.end();
+  req.session.loggedIn = true;
+  req.session.user = user;
+  return res.redirect("/");
 };
 
 export const logout = (req, res) => res.send("Log out!");
